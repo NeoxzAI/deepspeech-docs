@@ -24,7 +24,7 @@ Now we can build or use pre-built binaries for running inference on Windows, at 
 * Windows 10
 * [Visual Studio 2017 Community](https://visualstudio.microsoft.com/vs/community/) 
 
-Inside the Visual Studio Installer enable `MS Buil Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
+Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
 
 
 
