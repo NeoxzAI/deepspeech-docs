@@ -1,6 +1,6 @@
-# Deepspeech Windows inference
+# Deepspeech for Windows
 
-Now we can build or use pre-built binaries for running inference on Windows, at the moment just inference with `CPU` and `GPU` were tested. No support for training on Windows since there's not a potential benefit to the project.
+Now we can build the native DeepSpeech library and run inference on Windows using the C# client.
 
 ![Usage](images/usage.gif)
 
@@ -8,7 +8,7 @@ Now we can build or use pre-built binaries for running inference on Windows, at 
 
 - [Prerequisites](#prerequisites)
 - [Getting the code](#getting-the-code)
-- [Getting the pre-trained model](#getting-the-pre-trained-model)
+- [Configuring the paths](#configuring-the-paths)
 - [Using the model](#using-the-model)
   - [Using the Python package](#using-the-python-package)
 - [Code documentation](#code-documentation)
@@ -30,13 +30,17 @@ Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.
 
 ## Getting the code
 
-Install [Git Large File Storage](https://git-lfs.github.com/), either manually or through a package like `git-lfs` if available on your system. Then clone the DeepSpeech repository normally:
+We need to clone `mozilla/DeepSpeech` and `mozilla/tensorflow`.
 
 ```bash
 git clone https://github.com/mozilla/DeepSpeech
 ```
 
-## Getting the pre-trained model
+```bash
+git clone https://github.com/mozilla/tensorflow
+```
+
+## Configuring the paths
 
 If you want to use the pre-trained English model for performing speech-to-text, you can download it (along with other important inference material) from the [DeepSpeech releases page](https://github.com/mozilla/DeepSpeech/releases). Alternatively, you can run the following command to download and unzip the files in your current directory:
 
