@@ -42,10 +42,19 @@ git clone https://github.com/mozilla/tensorflow
 
 ## Configuring the paths
 
-If you want to use the pre-trained English model for performing speech-to-text, you can download it (along with other important inference material) from the [DeepSpeech releases page](https://github.com/mozilla/DeepSpeech/releases). Alternatively, you can run the following command to download and unzip the files in your current directory:
+We need to create a symbolic link, for this example let's supose that we cloned into `D:\cloned` and now the structure looks like:
+
+    .
+    ├── D:\
+    │   ├── cloned                 # Contains DeepSpeech and tensorflow side by side
+    │   │   ├── DeepSpeech         # Root of the cloned DeepSpeech
+    │   │   ├── tensorflow         # Root of the cloned Mozilla's tensorflow 
+    └── ...
+
+Change your path accordingly to your path structure, for the structure below we are going to use the following command:
 
 ```bash
-wget -O - https://github.com/mozilla/DeepSpeech/releases/download/v0.3.0/deepspeech-0.3.0-models.tar.gz | tar xvfz -
+mklink /d "D:\cloned\tensorflow\native_client" "D:\cloned\DeepSpeech\native_client"
 ```
 
 ## Using the model
