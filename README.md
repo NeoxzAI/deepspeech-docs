@@ -150,32 +150,20 @@ Not overriding eigen strong inline, some compilations could take more than 20 mi
 At this point we are ready to start building the library.
 
 #### CPU
+We will add AVX/AVX2 support in the command, you can remove the flags if you don't want to support them.
+
+```bash
+bazel build -c opt --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
+```
 
 
 #### GPU with CUDA
-
-or if you're on macOS:
-
+If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob/master/configure.py) now you can add `--config=cuda` to compile with CUDA support.
 
 ```bash
-python3 util/taskcluster.py --arch osx --target .
+bazel build -c opt --config=cuda --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
 ```
 
-also, if you need some binaries different than current master, like `v0.2.0-alpha.6`, you can use `--branch`:
-```bash
-python3 util/taskcluster.py --branch "v0.2.0-alpha.6 --target ."
-```
-
-This will download `native_client.tar.xz` which includes the deepspeech binary and associated libraries, and extract it into the current folder. `taskcluster.py` will download binaries for Linux/x86_64 by default, but you can override that behavior with the `--arch` parameter. See the help info with `python util/taskcluster.py -h` for more details. Proper DeepSpeech or TensorFlow's branch can be specified as well.
-
-Note: the following command assumes you [downloaded the pre-trained model](#getting-the-pre-trained-model).
-
-```bash
-./deepspeech --model models/output_graph.pbmm --alphabet models/alphabet.txt --lm models/lm.binary --trie models/trie --audio audio_input.wav
-```
-
-
-See the help output with `./deepspeech -h` and the [native client README](native_client/README.md) for more details.
 
 ### Using the Node.JS package
 
