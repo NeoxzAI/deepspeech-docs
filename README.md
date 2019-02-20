@@ -10,7 +10,9 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 - [Getting the code](#getting-the-code)
 - [Configuring the paths](#configuring-the-paths)
 - [Adding environment variables](#adding-environment-variables)
-- [Using the Python package](#using-the-python-package)
+- [Building the code](#building-the-code)
+    - [Build for CPU](#cpu)
+    - [Build with CUDA support](#gpu-with-cuda)
 - [Code documentation](#code-documentation)
 - [Contact/Getting Help](#contactgetting-help)
 
@@ -26,7 +28,7 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 
 Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
 
-If you want to enable CUDA support we need to install:
+If you want to enable CUDA support you need to install:
 
 * [CUDA 9.0 and cuDNN 7.3.1](https://developer.nvidia.com/cuda-90-download-archive) 
 
@@ -95,69 +97,65 @@ bazel version
 Add `python.exe` path to the environment variables.
 
 
-#### Create a DeepSpeech virtual environment
+#### CUDA
 
-In creating a virtual environment you will create a directory containing a `python3` binary and everything needed to run deepspeech. You can use whatever directory you want. For the purpose of the documentation, we will rely on `$HOME/tmp/deepspeech-venv`. You can create it using this command:
-
-```
-$ virtualenv -p python3 $HOME/tmp/deepspeech-venv/
-```
-
-Once this command completes successfully, the environment will be ready to be activated.
-
-#### Activating the environment
-
-Each time you need to work with DeepSpeech, you have to *activate*, *load* this virtual environment. This is done with this simple command:
+If you want to enable CUDA support you need to add the following paths to the environment variables.
 
 ```
-$ source $HOME/tmp/deepspeech-venv/bin/activate
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0
 ```
 
-#### Installing DeepSpeech Python bindings
-
-Once your environment has been setup and loaded, you can use `pip3` to manage packages locally. On a fresh setup of the virtualenv, you will have to install the DeepSpeech wheel. You can check if it is already installed by taking a look at the output of `pip3 list`. To perform the installation, just issue:
-
 ```
-$ pip3 install deepspeech
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\extras\CUPTI\libx64
 ```
 
-If it is already installed, you can also update it:
-```
-$ pip3 install --upgrade deepspeech
-```
+### Building the code
 
-Alternatively, if you have a supported NVIDIA GPU on Linux (See the release notes to find which GPU's are supported.), you can install the GPU specific package as follows:
+There's one last command to run before building, you need to run the [configure.py](https://github.com/mozilla/tensorflow/blob/master/configure.py)
 
-```
-$ pip3 install deepspeech-gpu
-```
-
-or update it as follows:
-```
-$ pip3 install --upgrade deepspeech-gpu
-```
-
-In both cases, it should take care of installing all the required dependencies. Once it is done, you should be able to call the sample binary using `deepspeech` on your command-line.
-
-Note: the following command assumes you [downloaded the pre-trained model](#getting-the-pre-trained-model).
+Run:
 
 ```bash
-deepspeech --model models/output_graph.pbmm --alphabet models/alphabet.txt --lm models/lm.binary --trie models/trie --audio my_audio_file.wav
+python configure.py
+```
+The script will ask the configuration that you want to use, for AVX/AVX2 we will specify manually in the command, if you want to support CUDA please enter in that option `y`
+
+Here's one example of the configuration:
+
+```
+Please input the desired Python library path to use.  Default is [D:\py\lib\site-packages]
+
+Do you wish to build TensorFlow with Apache Ignite support? [Y/n]: n
+No Apache Ignite support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with XLA JIT support? [y/N]: n
+No XLA JIT support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with ROCm support? [y/N]: n
+No ROCm support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with CUDA support? [y/N]: n
+No CUDA support will be enabled for TensorFlow.
+
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is /arch:AVX]:
+
+
+Would you like to override eigen strong inline for some C++ compilation to reduce the compilation time? [Y/n]: n
+Not overriding eigen strong inline, some compilations could take more than 20 mins. 
 ```
 
-The last two arguments are optional, and represent a language model.
 
-See [client.py](native_client/python/client.py) for an example of how to use the package programatically.
+### Running the build commands
 
-### Using the command-line client
+At this point we are ready to start building the library.
 
-To download the pre-built binaries, use `util/taskcluster.py`:
+#### CPU
 
-```bash
-python3 util/taskcluster.py --target .
-```
+
+#### GPU with CUDA
 
 or if you're on macOS:
+
 
 ```bash
 python3 util/taskcluster.py --arch osx --target .
