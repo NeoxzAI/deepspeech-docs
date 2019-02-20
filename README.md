@@ -26,9 +26,9 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 
 Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
 
-If you want to enable CUDA support we need:
+If you want to enable CUDA support we need to install:
 
-* [CUDA 9.0 and ](https://visualstudio.microsoft.com/vs/community/) 
+* [CUDA 9.0 and cuDNN 7.3.1](https://developer.nvidia.com/cuda-90-download-archive) 
 
 
 ## Getting the code
