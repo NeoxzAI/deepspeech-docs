@@ -1,4 +1,4 @@
-# Deepspeech for Windows
+# Building DeepSpeech for Windows
 
 Now we can build the native DeepSpeech library and run inference on Windows using the C# client.
 
@@ -26,6 +26,9 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 
 Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
 
+If you want to enable CUDA support we need:
+
+* [CUDA 9.0 and ](https://visualstudio.microsoft.com/vs/community/) 
 
 
 ## Getting the code
@@ -61,14 +64,36 @@ mklink /d "D:\cloned\tensorflow\native_client" "D:\cloned\DeepSpeech\native_clie
 
 After you install the requirements there are few environment variables that we need to add.
 
+#### MSYS2
 
- 
-### Using the Python package
+For MSYS2 we need to add `C:\msys64\usr\bin` to the environment variables then we need to run:
 
-Pre-built binaries that can be used for performing inference with a trained model can be installed with `pip3`. You can then use the `deepspeech` binary to do speech-to-text on an audio file:
+```bash
+pacman -Syu
+```
 
-For the Python bindings, it is highly recommended that you perform the installation within a Python 3.5 or later virtual environment. You can find more information about those in [this documentation](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
-We will continue under the assumption that you already have your system properly setup to create new virtual environments.
+```bash
+pacman -Su
+```
+
+```bash
+pacman -S patch unzip
+```
+
+#### BAZEL
+
+For BAZEL we need to add the path to the executable, very important to rename the executable to `bazel`.
+
+To check the version installed you can run:
+
+```bash
+bazel version
+```
+
+#### PYTHON
+
+Add `python.exe` path to the environment variables.
+
 
 #### Create a DeepSpeech virtual environment
 
