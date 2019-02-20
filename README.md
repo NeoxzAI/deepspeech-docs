@@ -154,7 +154,7 @@ bazel build -c opt --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspe
 
 
 #### GPU with CUDA
-If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob/master/configure.py) now you can add `--config=cuda` to compile with CUDA support.
+If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob/master/configure.py) configuration command now you can add `--config=cuda` to compile with CUDA support.
 
 ```bash
 bazel build -c opt --config=cuda --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
