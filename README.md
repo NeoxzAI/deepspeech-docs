@@ -8,6 +8,10 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 - [Getting the code](#getting-the-code)
 - [Configuring the paths](#configuring-the-paths)
 - [Adding environment variables](#adding-environment-variables)
+    - [MSYS2 paths](#msys2-paths)
+    - [BAZEL path](#abzel-path)
+    - [Python path](#python-path)
+    - [CUDA paths](#cuda-paths)
 - [Building the code](#building-the-code)
     - [Build for CPU](#cpu)
     - [Build with CUDA support](#gpu-with-cuda)
@@ -62,7 +66,7 @@ mklink /d "D:\cloned\tensorflow\native_client" "D:\cloned\DeepSpeech\native_clie
 
 After you install the requirements there are few environment variables that we need to add.
 
-#### MSYS2
+#### MSYS2 paths
 
 For MSYS2 we need to add `C:\msys64\usr\bin` to the environment variables then we need to run:
 
@@ -78,7 +82,7 @@ pacman -Su
 pacman -S patch unzip
 ```
 
-#### BAZEL
+#### BAZEL path
 
 For BAZEL we need to add the path to the executable, very important to rename the executable to `bazel`.
 
@@ -88,12 +92,12 @@ To check the version installed you can run:
 bazel version
 ```
 
-#### PYTHON
+#### PYTHON path
 
 Add `python.exe` path to the environment variables.
 
 
-#### CUDA
+#### CUDA paths
 
 If you want to enable CUDA support you need to add the following paths to the environment variables.
 
