@@ -114,7 +114,7 @@ Run:
 ```bash
 python configure.py
 ```
-The script will ask the configuration that you want to use, for AVX/AVX2 we will specify manually in the command, if you want to support CUDA please enter in that option `y`
+The script will ask the configuration that you want to use, for AVX/AVX2 we will specify manually in the command so, we will skip this option by hitting `enter`. If you want to support CUDA please enter in that option `y` when it asks for CUDA support.
 
 Here's one example of the configuration:
 
