@@ -9,7 +9,7 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 - [Configuring the paths](#configuring-the-paths)
 - [Adding environment variables](#adding-environment-variables)
     - [MSYS2 paths](#msys2-paths)
-    - [BAZEL path](#abzel-path)
+    - [BAZEL path](#bazel-path)
     - [Python path](#python-path)
     - [CUDA paths](#cuda-paths)
 - [Building the code](#building-the-code)
@@ -47,7 +47,7 @@ git clone https://github.com/mozilla/tensorflow
 
 ## Configuring the paths
 
-We need to create a symbolic link, for this example let's supose that we cloned into `D:\cloned` and now the structure looks like:
+We need to create a symbolic link, for this example let's suppose that we cloned into `D:\cloned` and now the structure looks like:
 
     .
     ├── D:\
@@ -164,7 +164,7 @@ If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob
 bazel build -c opt --config=cuda --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
 ```
 
-Be patient, if you enabled AVX/AVX and CUDA it will take a long time. After a long time you should see it stops and shows a path to the generated `libdeepspeech.so`.
+Be patient, if you enabled AVX/AVX2 and CUDA it will take a long time. After a long time, you should see it stops and shows a path to the generated `libdeepspeech.so`.
 
 
 ## Using the generated library
