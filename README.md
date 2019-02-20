@@ -15,7 +15,7 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 - [Building the code](#building-the-code)
     - [Build for CPU](#cpu)
     - [Build with CUDA support](#gpu-with-cuda)
-
+- [Using the generated library](#using-the-generated-library)
 ## Prerequisites
 
 * [Python 3.6](https://www.python.org/)
@@ -163,3 +163,10 @@ If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob
 ```bash
 bazel build -c opt --config=cuda --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
 ```
+
+Be patient, if you enabled AVX/AVX and CUDA it will take a long time. After a long time you should see it stops and shows a path to the generated `libdeepspeech.so`.
+
+
+## Using the generated library
+
+As for now we can only use the generated `libdeepspeech.so` with the C# clients, go to [DeepSpeech/examples/net_framework/CSharpExamples/](https://github.com/mozilla/DeepSpeech/tree/master/examples/net_framework/CSharpExamples) in your DeepSpeech directory and open the Visual Studio solution, then we need to build in debug or release mode, finally we just need to copy `libdeepspeech.so` to the generated `x64/Debug` or `x64/Release` directory.
