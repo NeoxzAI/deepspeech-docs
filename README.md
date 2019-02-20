@@ -9,8 +9,8 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 - [Prerequisites](#prerequisites)
 - [Getting the code](#getting-the-code)
 - [Configuring the paths](#configuring-the-paths)
-- [Using the model](#using-the-model)
-  - [Using the Python package](#using-the-python-package)
+- [Adding environment variables](#adding-environment-variables)
+- [Using the Python package](#using-the-python-package)
 - [Code documentation](#code-documentation)
 - [Contact/Getting Help](#contactgetting-help)
 
@@ -51,21 +51,18 @@ We need to create a symbolic link, for this example let's supose that we cloned 
     │   │   ├── tensorflow         # Root of the cloned Mozilla's tensorflow 
     └── ...
 
-Change your path accordingly to your path structure, for the structure below we are going to use the following command:
+Change your path accordingly to your path structure, for the structure above we are going to use the following command:
 
 ```bash
 mklink /d "D:\cloned\tensorflow\native_client" "D:\cloned\DeepSpeech\native_client"
 ```
 
-## Using the model
+## Adding environment variables
 
-There are three ways to use DeepSpeech inference:
-
-- [The Python package](#using-the-python-package)
-- [The command-line client](#using-the-command-line-client)
-- [The Node.JS package](#using-the-nodejs-package)
+After you install the requirements there are few environment variables that we need to add.
 
 
+ 
 ### Using the Python package
 
 Pre-built binaries that can be used for performing inference with a trained model can be installed with `pip3`. You can then use the `deepspeech` binary to do speech-to-text on an audio file:
