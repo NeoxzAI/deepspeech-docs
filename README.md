@@ -1,6 +1,6 @@
-# Building DeepSpeech for Windows
+# Building DeepSpeech native client for Windows
 
-Now we can build the native DeepSpeech library and run inference on Windows using the C# client.
+Now we can build the native client of DeepSpeech and run inference on Windows using the C# client, to do that we need to compile the `native_client`.
 
 **Table of Contents**
 
@@ -12,7 +12,7 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
     - [BAZEL path](#bazel-path)
     - [Python path](#python-path)
     - [CUDA paths](#cuda-paths)
-- [Building the code](#building-the-code)
+- [Building the native_client](#building-the-native_client)
     - [Build for CPU](#cpu)
     - [Build with CUDA support](#gpu-with-cuda)
 - [Using the generated library](#using-the-generated-library)
@@ -20,18 +20,19 @@ Now we can build the native DeepSpeech library and run inference on Windows usin
 
 * [Python 3.6](https://www.python.org/)
 * [Git Large File Storage](https://git-lfs.github.com/)
-* [MSYS2](https://www.msys2.org/)
+* [MSYS2(x86_64)](https://www.msys2.org/)
 * [Bazel v0.17.2](https://github.com/bazelbuild/bazel/releases)
 * [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
 * Windows 10
 * [Visual Studio 2017 Community](https://visualstudio.microsoft.com/vs/community/) 
 
-Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`
+Inside the Visual Studio Installer enable `MS Build Tools` and `VC++ 2015.3 v14.00 (v140) toolset for desktop`.
 
 If you want to enable CUDA support you need to install:
 
 * [CUDA 9.0 and cuDNN 7.3.1](https://developer.nvidia.com/cuda-90-download-archive) 
 
+It may compile with other versions, as we don't extensively test other versions, we highly recommend sticking to the recommended versions in order to avoid compilation errors caused by incompatible versions.
 
 ## Getting the code
 
@@ -64,11 +65,11 @@ mklink /d "D:\cloned\tensorflow\native_client" "D:\cloned\DeepSpeech\native_clie
 
 ## Adding environment variables
 
-After you install the requirements there are few environment variables that we need to add.
+After you have installed the requirements there are few environment variables that we need to add to our `PATH` variable of the system variables.
 
 #### MSYS2 paths
 
-For MSYS2 we need to add `C:\msys64\usr\bin` to the environment variables then we need to run:
+For MSYS2 we need to add `bin` directory, if you installed in the default route the path that we need to add should looks like `C:\msys64\usr\bin`. Now we can run `pacman`:
 
 ```bash
 pacman -Syu
@@ -84,7 +85,7 @@ pacman -S patch unzip
 
 #### BAZEL path
 
-For BAZEL we need to add the path to the executable, very important to rename the executable to `bazel`.
+For BAZEL we need to add the path to the executable, make sure you rename the executable to `bazel`.
 
 To check the version installed you can run:
 
@@ -94,63 +95,25 @@ bazel version
 
 #### PYTHON path
 
-Add `python.exe` path to the environment variables.
+Add your `python.exe` path to the `PATH` variable.
 
 
 #### CUDA paths
 
-If you want to enable CUDA support you need to add the following paths to the environment variables.
+If you run CUDA enabled `native_client` we need to add the following to the `PATH` variable.
 
 ```
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin
 ```
 
-```
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\extras\CUPTI\libx64
-```
-
-### Building the code
+### Building the native_client
 
 There's one last command to run before building, you need to run the [configure.py](https://github.com/mozilla/tensorflow/blob/master/configure.py) inside `tensorflow` cloned directory.
 
-Run:
-
-```bash
-python configure.py
-```
-The script will ask the configuration that you want to use, for AVX/AVX2 we will specify manually in the command so, we will skip this option by hitting `enter`. If you want to support CUDA please for this option select `y` when it asks for CUDA support.
-
-Here's one example of the configuration:
-
-```
-Please input the desired Python library path to use.  Default is [D:\py\lib\site-packages]
-
-Do you wish to build TensorFlow with Apache Ignite support? [Y/n]: n
-No Apache Ignite support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with XLA JIT support? [y/N]: n
-No XLA JIT support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with ROCm support? [y/N]: n
-No ROCm support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with CUDA support? [y/N]: n
-No CUDA support will be enabled for TensorFlow.
-
-Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is /arch:AVX]:
-
-
-Would you like to override eigen strong inline for some C++ compilation to reduce the compilation time? [Y/n]: n
-Not overriding eigen strong inline, some compilations could take more than 20 mins. 
-```
-
-
-### Running the build commands
-
-At this point we are ready to start building the library, go to `tensorflow` directory that you cloned, following our examples should be `D:\cloned\tensorflow`.  
+At this point we are ready to start building the `native_client`, go to `tensorflow` directory that you cloned, following our examples should be `D:\cloned\tensorflow`.  
 
 #### CPU
-We will add AVX/AVX2 support in the command, you can remove the flags if you don't want to support them.
+We will add AVX/AVX2 support in the command, please make sure that your CPU supports these instructions before adding the flags, if not you can remove them.
 
 ```bash
 bazel build -c opt --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
@@ -164,7 +127,7 @@ If you enabled CUDA in [configure.py](https://github.com/mozilla/tensorflow/blob
 bazel build -c opt --config=cuda --copt=/arch:AVX --copt=/arch:AVX2 //native_client:libdeepspeech.so
 ```
 
-Be patient, if you enabled AVX/AVX2 and CUDA it will take a long time. After a long time, you should see it stops and shows a path to the generated `libdeepspeech.so`.
+Be patient, if you enabled AVX/AVX2 and CUDA it will take a long time. Finally you should see it stops and shows the path to the generated `libdeepspeech.so`.
 
 
 ## Using the generated library
