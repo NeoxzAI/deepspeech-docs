@@ -28,7 +28,6 @@ Please ensure you have the required [CUDA dependency](#cuda-dependency).
 
 See the output of `deepspeech -h` for more information on the use of `deepspeech`. (If you experience problems running `deepspeech`, please check [required runtime dependencies](native_client/README.md#required-dependencies)).
 
-
 **Table of Contents**
 
 - [Prerequisites](#prerequisites)
